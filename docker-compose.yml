@@ -9,6 +9,7 @@ services:
       - 9870:9870
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
+      - hadoop_namenode_map-reduce:/map-reduce
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -100,3 +101,9 @@ volumes:
       type: 'none'
       o: 'bind'
       device: './data/historyserver'
+  hadoop_namenode_map-reduce:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './map-reduce/target'
