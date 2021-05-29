@@ -1,0 +1,1 @@
+docker cp ./target/map-reduce.jar namenode:/map-reduce

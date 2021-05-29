@@ -6,6 +6,7 @@ services:
     container_name: namenode
     restart: always
     ports:
+      - 9000:9000
       - 9870:9870
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
@@ -25,7 +26,7 @@ services:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864"
     env_file:
       - ./hadoop.env
-        
+
   datanode1:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode1
@@ -38,7 +39,7 @@ services:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ./hadoop.env
-  
+
   datanode2:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode2
@@ -62,7 +63,7 @@ services:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9864 resourcemanager:8088"
     env_file:
       - ./hadoop.env
-  
+
   historyserver:
     image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
     container_name: historyserver
@@ -75,35 +76,10 @@ services:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
-  
+
 volumes:
   hadoop_namenode:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/namenode'
   hadoop_datanode1:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/datanode1'
   hadoop_datanode2:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/datanode2'
   hadoop_historyserver:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/historyserver'
   hadoop_namenode_map-reduce:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './map-reduce/target'
