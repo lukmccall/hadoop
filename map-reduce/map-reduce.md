@@ -39,7 +39,7 @@ tekście. Wspomniany program znajduje się w pliku WordCount.java.
 ### Zadanie
 
 <b>Wykonaj operacje MapReduce przy wykorzystaniu programu WordCount.java na danych znajdujących się w
-[pliku](/input/wordcount/lorem.txt).</b>
+[pliku](./input/wordcount/lorem.txt).</b>
 
 <details><summary>Zbuduj plik .jar przy wykorzystaniu mavena.</summary>
 <p>
