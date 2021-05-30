@@ -180,3 +180,27 @@ hadoop fs -setrep -w 2 /data/f1.txt
 
 </p>
 </details>
+
+<br/>
+
+<details><summary>Wyświetl statystyki pliku `/data/f1.txt` korzystając z podanego formatu: `"type:%F perm:%a %u:%g size:%b mtime:%y atime:%x name:%n"`</summary>
+<p>
+
+```sh
+hadoop fs -stat "type:%F perm:%a %u:%g size:%b mtime:%y atime:%x name:%n" /data/f1.txt
+```
+
+</p>
+</details>
+
+<br/>
+
+<details><summary>Sprawdź czy plik `/data/f1.txt` nie jest pusty</summary>
+<p>
+
+```sh
+hadoop fs -test -e /data/f1.txt; echo $
+```
+
+</p>
+</details>

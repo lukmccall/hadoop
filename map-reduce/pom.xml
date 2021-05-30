@@ -35,13 +35,6 @@
                 <version>2.4</version>
                 <configuration>
                     <finalName>map-reduce</finalName>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>hadoop.WordCount</mainClass>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
             <plugin>
