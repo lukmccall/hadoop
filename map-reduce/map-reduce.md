@@ -172,7 +172,7 @@ Konieczne jest:
 - uruchomienie operacji MapReduce
 
 ```sh
-hadoop jar map-reduce/map-reduce.jar hadoop.MR_2_Logging input/lorem.txt output01
+hadoop jar map-reduce/map-reduce.jar hadoop.MR_2_Logging input/lorem.txt output02
 ```
 
 </p>
@@ -468,7 +468,7 @@ job.setNumReduceTasks(0);
 <p>
 
 ```java
-    public static class IntSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
+    public static class LongSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
     private final LongWritable result = new LongWritable();
 
@@ -486,7 +486,7 @@ job.setNumReduceTasks(0);
 ```
 
 ```java
-job.setReducerClass(IntSumReducer.class);
+job.setReducerClass(LongSumReducer.class);
 ```
 
 </p>
