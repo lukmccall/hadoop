@@ -32,7 +32,7 @@ public class MR_2_Logging {
         }
     }
 
-    public static class IntSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
+    public static class LongSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
         private final LongWritable result = new LongWritable();
 
@@ -55,7 +55,7 @@ public class MR_2_Logging {
 
         job.setMapperClass(TokenizerMapper.class);
 
-        job.setReducerClass(IntSumReducer.class);
+        job.setReducerClass(LongSumReducer.class);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
