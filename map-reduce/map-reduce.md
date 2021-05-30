@@ -134,7 +134,7 @@ możliwe do zobaczenia w logach danej operacji MapReduce.
 ### Zadanie
 
 <b>Aby się o tym przekonać, dodaj kilka wywołań System.out oraz System.err do wcześniejszego programu, następnie uruchom
-go na danych znajdujących się w [pliku](/input/wordcount/lorem.txt), a następnie sprawdź w jaki sposób można przeglądać
+go na danych znajdujących się w [pliku](./input/wordcount/lorem.txt), a następnie sprawdź w jaki sposób można przeglądać
 te logi z wykorzystaniem historyserver.</b>
 
 <details><summary>Edytuj plik WordCount.java i dodaj w nim wywołania System.out i System.err.</summary>
@@ -216,7 +216,7 @@ Oprócz konfiguracji z poprzednich zadań konieczne jest:
 - wywołanie metody job.waitForCompletion(verbose)
 
 ```java
-        Job job=Job.getInstance(configuration,"Word Count 1.2 - Counting");
+        Job job = Job.getInstance(configuration, "Word Count 1.2 - Counting");
 
         job.setJarByClass(MR_3_JobChaining.class);
 
@@ -228,8 +228,8 @@ Oprócz konfiguracji z poprzednich zadań konieczne jest:
 
         job.setOutputFormatClass(SequenceFileOutputFormat.class);
 
-        FileInputFormat.addInputPath(job,new Path(args[0]));
-        FileOutputFormat.setOutputPath(job,new Path(args[1]));
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         job.waitForCompletion(true);
 ```
@@ -277,7 +277,7 @@ Oprócz konfiguracji z poprzednich zadań konieczne jest:
 - ustawienie ReducerClass na Reducer (IdentityReducer)
 
 ```java
-        Job job2=Job.getInstance(configuration,"Word Count 1.2 - Sorting");
+        Job job2 = Job.getInstance(configuration, "Word Count 1.2 - Sorting");
 
         job2.setJarByClass(MR_3_JobChaining.class);
 
@@ -290,10 +290,10 @@ Oprócz konfiguracji z poprzednich zadań konieczne jest:
         job2.setOutputKeyClass(LongWritable.class);
         job2.setOutputValueClass(Text.class);
 
-        FileInputFormat.addInputPath(job2,new Path(args[1]));
-        FileOutputFormat.setOutputPath(job2,new Path(args[2]));
+        FileInputFormat.addInputPath(job2, new Path(args[1]));
+        FileOutputFormat.setOutputPath(job2, new Path(args[2]));
 
-        System.exit(job2.waitForCompletion(true)?0:1);
+        System.exit(job2.waitForCompletion(true) ? 0 : 1);
 ```
 
 </p>
@@ -386,9 +386,9 @@ zamiana klucza z wartością. Wykorzystaj do tego klasy `ChainMapper` i `ChainRe
 <p>
 
 ```java
-        ChainMapper.addMapper(job,TokenizerMapper.class,Object.class,Text.class,Text.class,LongWritable.class,configuration);
-        ChainMapper.addMapper(job,UpperCaseMapper.class,Text.class,LongWritable.class,Text.class,LongWritable.class,configuration);
-        ChainMapper.addMapper(job,InvalidCharactersMapper.class,Text.class,LongWritable.class,Text.class,LongWritable.class,configuration);
+        ChainMapper.addMapper(job, TokenizerMapper.class, Object.class, Text.class, Text.class, LongWritable.class, configuration);
+        ChainMapper.addMapper(job, UpperCaseMapper.class, Text.class, LongWritable.class, Text.class, LongWritable.class, configuration);
+        ChainMapper.addMapper(job, InvalidCharactersMapper.class, Text.class, LongWritable.class, Text.class, LongWritable.class, configuration);
 ```
 
 </p>
@@ -398,8 +398,8 @@ zamiana klucza z wartością. Wykorzystaj do tego klasy `ChainMapper` i `ChainRe
 <p>
 
 ```java
-        ChainReducer.setReducer(job,LongSumReducer.class,Text.class,LongWritable.class,Text.class,LongWritable.class,configuration);
-        ChainReducer.addMapper(job,KeyValueSwappingMapper.class,Text.class,LongWritable.class,LongWritable.class,Text.class,configuration);
+        ChainReducer.setReducer(job, LongSumReducer.class, Text.class, LongWritable.class, Text.class, LongWritable.class, configuration);
+        ChainReducer.addMapper(job, KeyValueSwappingMapper.class, Text.class, LongWritable.class, LongWritable.class, Text.class, configuration);
 ```
 
 </p>
@@ -551,33 +551,33 @@ job.addCacheFile(new Path(args[2]).toUri());
 <details><summary>Zmodyfikuj TokenizerMapper tak aby przy tworzeniu zawierał listę słów do ignorowania.</summary>
 <p>
 
-```
-private final Set<String> patternsToSkip=new HashSet<>();
+```java
+        private final Set<String> patternsToSkip = new HashSet<>();
 
-@Override
-public void setup(Context context)throws IOException{
-        Configuration conf=context.getConfiguration();
+        @Override
+        public void setup(Context context) throws IOException {
+            Configuration conf = context.getConfiguration();
 
-        URI[]patternsURIs=Job.getInstance(conf).getCacheFiles();
-        for(URI patternsURI:patternsURIs){
-          Path patternsPath=new Path(patternsURI.getPath());
-          String patternsFileName=patternsPath.getName();
-          parseSkipFile(patternsFileName);
-        }
-}
-
-private void parseSkipFile(String fileName){
-        try{
-            BufferedReader fis=new BufferedReader(new FileReader(fileName));
-            String pattern;
-            while((pattern=fis.readLine())!=null){
-                patternsToSkip.add(pattern);
+            URI[] patternsURIs = Job.getInstance(conf).getCacheFiles();
+            for (URI patternsURI : patternsURIs) {
+                Path patternsPath = new Path(patternsURI.getPath());
+                String patternsFileName = patternsPath.getName();
+                parseSkipFile(patternsFileName);
             }
         }
-        catch(IOException ioe){
-          System.err.println("Caught exception while parsing the cached file '"+StringUtils.stringifyException(ioe));
+
+        private void parseSkipFile(String fileName) {
+            try {
+                BufferedReader fis = new BufferedReader(new FileReader(fileName));
+                String pattern;
+                while ((pattern = fis.readLine()) != null) {
+                    patternsToSkip.add(pattern);
+                }
+            } catch (IOException ioe) {
+                System.err.println("Caught exception while parsing the cached file '" + StringUtils.stringifyException(ioe));
+            }
         }
-}
+
 ```
 
 </p>
@@ -586,7 +586,7 @@ private void parseSkipFile(String fileName){
 <details><summary>Zmodyfikuj TokenizerMapper tak aby ignorował wybrane słowa.</summary>
 <p>
 
-```
+```java
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             StringTokenizer itr = new StringTokenizer(value.toString());
@@ -681,10 +681,10 @@ Map słowie znajduje się znak interpunkcyjny.
 
 ```java
     enum Punctuation {
-    ANY,
-    DOT,
-    COMMA
-}
+        ANY,
+        DOT,
+        COMMA
+    }
 ```
 
 </p>
@@ -693,7 +693,7 @@ Map słowie znajduje się znak interpunkcyjny.
 <details><summary>Zmodyfikuj TokenizerMapper tak aby liczył wystąpienia znaków interpunkcyjnych.</summary>
 <p>
 
-```
+```java
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             StringTokenizer itr = new StringTokenizer(value.toString());
@@ -720,7 +720,7 @@ Map słowie znajduje się znak interpunkcyjny.
 <details><summary>Skonfiguruj job tak aby po zakończeniu procesowania wypisywał do konsoli informacje o counterach.</summary>
 <p>
 
-```
+```java
         job.waitForCompletion(true);
 
         for (CounterGroup group : job.getCounters()) {
@@ -1000,8 +1000,8 @@ odpowie na pytanie, ile razy występuje dane słowo.</b>
 <p>
 
 ```java
-        MultipleInputs.addInputPath(job,new Path(args[0]),TextInputFormat.class,TokenizerMapper.class);
-        MultipleInputs.addInputPath(job,new Path(args[1]),TextInputFormat.class,IdentityMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, TokenizerMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, IdentityMapper.class);
 ```
 
 Dodatkowo należy usunąc linijkę mówiącą o konfiguracji `MapperClass`
