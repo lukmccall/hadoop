@@ -20,3 +20,9 @@ Stworzony na podstawie:
 - [dockera](https://docs.docker.com/desktop/)
 - java w wersji 8 lub 11
 - edytor - zalecany [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+### Zajęcia
+
+- prezentacja
+- [HDFS](https://github.com/lukmccall/hadoop/blob/master/hdfs.md)
+- [MapReduce](https://github.com/lukmccall/hadoop/blob/master/map-reduce/map-reduce.md)
