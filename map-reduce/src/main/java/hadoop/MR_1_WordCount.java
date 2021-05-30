@@ -30,7 +30,7 @@ public class MR_1_WordCount {
         }
     }
 
-    public static class IntSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
+    public static class LongSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
         private final LongWritable result = new LongWritable();
 
@@ -53,7 +53,7 @@ public class MR_1_WordCount {
         job.setJarByClass(MR_1_WordCount.class);
 
         job.setMapperClass(TokenizerMapper.class);
-        job.setReducerClass(IntSumReducer.class);
+        job.setReducerClass(LongSumReducer.class);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
