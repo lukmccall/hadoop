@@ -623,11 +623,11 @@ hdfs dfs -mkdir -p ignore
 </p>
 </details>
 
-<details><summary>Skopiuj lokalny plik wejściowy (ignore.txt) do HDFS (do folderu input).</summary>
+<details><summary>Skopiuj lokalny plik wejściowy (ignore.txt) do HDFS (do folderu ignore).</summary>
 <p>
 
 ```sh
-hdfs dfs -put ./ignore.txt input
+hdfs dfs -put ./ignore.txt ignore
 ```
 
 </p>
@@ -915,6 +915,36 @@ Wykorzystaj ten obiekt do stworzenia operacji MapReduce, którego zadaniem będz
 
         job.setOutputKeyClass(One.class);
         job.setOutputValueClass(LongWritable.class);
+```
+
+</p>
+</details>
+
+<details><summary>Skopiuj plik wejściowy (input/class/class.txt) do kontenera.</summary>
+<p>
+
+```sh
+docker cp ./input/class/class.txt namenode:/
+```
+
+</p>
+</details>
+
+<details><summary>Stwórz folder class w HDFS.</summary>
+<p>
+
+```sh
+hdfs dfs -mkdir -p class
+```
+
+</p>
+</details>
+
+<details><summary>Skopiuj lokalny plik wejściowy (class.txt) do HDFS (do folderu class).</summary>
+<p>
+
+```sh
+hdfs dfs -put ./class.txt class
 ```
 
 </p>
