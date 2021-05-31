@@ -23,6 +23,6 @@ Stworzony na podstawie:
 
 ### Zajęcia
 
-- [prezentacja](https://docs.google.com/presentation/d/1jh2I8JzZPAFVlEghArhiK9GFUMxTWSoe2D1gAmKA6Nw/edit?usp=sharing)
+- [Prezentacja](https://docs.google.com/presentation/d/1jh2I8JzZPAFVlEghArhiK9GFUMxTWSoe2D1gAmKA6Nw/edit?usp=sharing)
 - [HDFS](https://github.com/lukmccall/hadoop/blob/master/hdfs.md)
 - [MapReduce](https://github.com/lukmccall/hadoop/blob/master/map-reduce/map-reduce.md)
